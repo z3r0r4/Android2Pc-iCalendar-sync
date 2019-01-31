@@ -1,14 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[102]:
+# In[47]:
 
 
+#TODO add duration component so that some dont end up with now end
 from pathlib import Path
-path = Path(r"D:\Programme\UBUNTU\Ubuntu.1604.2017.711.0_v1\rootfs\root\com.android.calendar\events-22-55-08\data.csv")
+from sys import argv
+
+path = Path(argv[1]) #pass path to csv
+#path = 
+
+directory = Path(argv[2])
+#directory = 
+
+print("Reading form path: "+str(path))
 
 
-# In[103]:
+# In[48]:
 
 
 csvdata = []
@@ -21,7 +30,7 @@ with open(path,"r") as fp:
 #csvdata
 
 
-# In[104]:
+# In[ ]:
 
 
 #creates dictonary that contains the events seperated by calendar 
@@ -47,7 +56,7 @@ csvcalendars
 
 
 
-# In[105]:
+# In[ ]:
 
 
 import icalendar
@@ -59,17 +68,22 @@ def display(cal):
     return cal.to_ical().decode('utf-8').replace('\r\n', '\n').strip()
 
 
-# In[106]:
+# In[ ]:
 
 
-allDay = 0 
+allDay = 0
 def setAllday(b):
     global allDay
-    allDay = b
-def getAllday(): return bool(allDay)
+    allDay = int(b)
+    print("set Allday to: "+str(allDay) +str(type(allDay)))
+    
+setAllday(1)
+if(allDay!=1):
+    raise ValueError
+#def getAllday(): return bool(allDay)
 
 
-# In[107]:
+# In[ ]:
 
 
 import time, pytz #used for time only berlin for now | improve with localize
@@ -77,9 +91,10 @@ import time, pytz #used for time only berlin for now | improve with localize
 
 
 def timestamp_to_timeValue(epochTime):
-    if(allDay):
+    #print("     AAAAAAAAAAAAAA"+ str(type(allDay))+str(allDay)+str(type(allDay)))
+    if(allDay==1):
         return timestamp_to_date(epochTime)
-    elif(allDay==False):
+    elif(allDay==0):
         return timestamp_to_time(epochTime)
     else:
         raise ValueError
@@ -89,17 +104,17 @@ def timestamp_to_date(epochTime):
 #print(timestamp_to_date('1559174400000'))
 
 def timestamp_to_time(epochTime):
-    return  datetime.fromtimestamp(float(epochTime)/1000.).astimezone(pytz.timezone('UTC')).replace(tzinfo=None)#.replace(tzinfo=pytz.timezone('Europe/Berlin'))#'Europe/Berlin'))
+    return  datetime.fromtimestamp(float(epochTime)/1000.)#.astimezone(pytz.timezone('UTC')).replace(tzinfo=None)#.replace(tzinfo=pytz.timezone('Europe/Berlin'))#'Europe/Berlin'))
 #timestamp_to_time('1559174400000')+
 
 
-# In[108]:
+# In[ ]:
 
 
 timestamp_to_timeValue('1559174400000')
 
 
-# In[109]:
+# In[ ]:
 
 
 header2componentMap = {
@@ -118,7 +133,7 @@ def mapHeader2Component(headerKey,value):
 #print(*mapHeader2Component("title","1"))
 
 
-# In[116]:
+# In[ ]:
 
 
 icscalendars = {}
@@ -148,29 +163,24 @@ def add_events_to_ics(calendarName):
 add_events_to_ics("S4-R4")
 
 
-# In[111]:
+# In[ ]:
 
 
 print(display(icscalendars["S4-R4"]))
 
 
-# In[112]:
+# In[ ]:
 
 
 import tempfile, os
-directory = Path(r"")
-f = open(os.path.join(directory, 'MYFILEYEEEEEEEEEE.ics'), 'wb') #(filename,mode) wb indicates that the file is opened in binary mode since its a binary file
+
+print("Saving CSV to: "+str(directory))
+f = open(os.path.join(directory, 'calendar-export_'+'.ics'),'wb')#+datetime.now().strftime("y%Y%m%d_d%H%M")+'.ics'), 'wb') #(filename,mode) wb indicates that the file is opened in binary mode since its a binary file
 f.write(icscalendars["S4-R4"].to_ical())
 f.close()
+print("converted calendar!")
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
