@@ -1,0 +1,3 @@
+[submodule "lib/adb-export"]
+	path = lib/adb-export
+	url = https://github.com/sromku/adb-export.git
