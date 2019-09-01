@@ -2,9 +2,9 @@
 
 from pathlib import Path
 from sys import argv
-#datapath = Path(argv[1]) #pass datapath to csv
+datapath = Path(argv[1]) #pass datapath to csv
 
-#directory = Path(argv[2])
+directory = Path(argv[2])
 
 print("Reading form datapath: "+str(datapath))
 
@@ -171,7 +171,7 @@ f.write(icscalendars["S4-R4"].to_ical())
 f.close()
 print("converted calendar from CSV to ICS!")
 print("saved ics to: "+str(directory))
-raw_input()
+input()
 
 # In[ ]:
 
