@@ -1,4 +1,4 @@
-﻿# Android2Pc-iCalendar-sync
+# Android2Pc-iCalendar-sync
 ## A2P-ics-sync
 
 A Python script to sync Android calendars to a pc using the iCalendar format.
