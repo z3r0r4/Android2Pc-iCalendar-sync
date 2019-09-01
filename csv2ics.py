@@ -1,28 +1,19 @@
-#!/usr/bin/env python
-# coding: utf-8
+#TODO add duration component so that some dont end up with no end
 
-# In[47]:
-
-
-#TODO add duration component so that some dont end up with now end
 from pathlib import Path
 from sys import argv
+#datapath = Path(argv[1]) #pass datapath to csv
 
-path = Path(argv[1]) #pass path to csv
-#path = 
+#directory = Path(argv[2])
 
-directory = Path(argv[2])
-#directory = 
-
-print("Reading form path: "+str(path))
+print("Reading form datapath: "+str(datapath))
 
 
 # In[48]:
 
-
 csvdata = []
 import csv
-with open(path,"r") as fp:
+with open(str(datapath),"r") as fp:
     reader = csv.DictReader(fp,skipinitialspace=True)
     #data = next(reader)
     for row in reader: # Iterate the remaining rows
@@ -60,7 +51,7 @@ csvcalendars
 
 
 import icalendar
-from icalendar import Calendar, Event, vText,  vDuration
+from icalendar import Calendar, Event, vText, vDuration
 from datetime import datetime
 import random
 
@@ -175,12 +166,20 @@ print(display(icscalendars["S4-R4"]))
 import tempfile, os
 
 print("Saving CSV to: "+str(directory))
-f = open(os.path.join(directory, 'calendar-export_'+'.ics'),'wb')#+datetime.now().strftime("y%Y%m%d_d%H%M")+'.ics'), 'wb') #(filename,mode) wb indicates that the file is opened in binary mode since its a binary file
+f = open(os.path.join(str(directory), 'calendar-export_''.ics'), 'wb')#+datetime.now().strftime("y%Y%m%d_d%H%M")+'.ics'), 'wb') #(filename,mode) wb indicates that the file is opened in binary mode since its a binary file
 f.write(icscalendars["S4-R4"].to_ical())
 f.close()
-print("converted calendar!")
+print("converted calendar from CSV to ICS!")
+print("saved ics to: "+str(directory))
+raw_input()
+
+# In[ ]:
 
 
+
+
+
+# In[ ]:
 
 
 

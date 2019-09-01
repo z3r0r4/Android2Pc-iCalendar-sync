@@ -1,4 +1,6 @@
-# android-to-pc-ics-sync
+﻿# Android2Pc-iCalendar-sync
+## A2P-ics-sync
+
 A Python script to sync Android calendars to a pc using the iCalendar format.
 
 My goal was to sync my Android calendar with my Thunderbird-Lightning calendar.<br>
